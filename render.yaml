@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: saas-platform
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm run db:init && npm run db:seed && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: RUN_CONSUMER
+        value: "true"
+      - key: PG_SSL
+        value: "true"
+      - key: KAFKA_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: KAFKA_BROKERS
+        sync: false
+      - key: KAFKA_USERNAME
+        sync: false
+      - key: KAFKA_PASSWORD
+        sync: false
+      - key: INVOICE_WORKER_URL
+        sync: false
+      - key: WORKER_SECRET
+        sync: false
